@@ -29,6 +29,8 @@ public class AdminController {
 	FileServices fileService;
 
 	private final Logger logger = LoggerFactory.getLogger(AdminController.class);
+	
+	
 
 	@RequestMapping(value = "/uploadFile", method = RequestMethod.GET)
 	public String uploadGetController() {

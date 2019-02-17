@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -23,7 +22,7 @@ public class ReadExcel {
 	private final Logger logger = LoggerFactory.getLogger(ReadExcel.class);
 	
 	public boolean setMapData(String Filename) {
-		DataFormatter formatter = new DataFormatter();
+	
 		String path = Filename;// "E:\testshare.xlsx";
 		try {
 			FileInputStream inputStream = new FileInputStream(path);
@@ -47,6 +46,7 @@ public class ReadExcel {
 				// Putting data to ExcelMapData
 			}
 			HashmapConstants.mapOfMaps.put(HashmapConstants.HR_DETAILS, MapData);
+			workbook.close();
 			return true;
 		} catch (IOException e) {
 			logger.error("IOException while parsing excel file ",e);

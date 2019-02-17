@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -27,11 +26,13 @@ public class FileServices {
 			InputStream inputStream = inputFile.getInputStream();
 			FileOutputStream fStream = new FileOutputStream(uploadedFile);
 			BufferedWriter writer = new BufferedWriter(new FileWriter(uploadedFile));
-			int ch=0;
+			int ch = 0;
 			while ((ch = inputStream.read()) != -1)
 				fStream.write(ch);
 			fStream.flush();
 			fStream.close();
+			writer.flush();
+			writer.close();
 			return true;
 		} catch (IOException e) {
 			logger.error("error while creating file at path {}", targetPath);

@@ -9,6 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 public class FileShareApplication {
 
 	public static void main(String[] args) {
+		
 		SpringApplication.run(FileShareApplication.class, args);
 	}
 

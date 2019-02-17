@@ -11,4 +11,13 @@ public class HashmapConstants {
 	
 	public static String FINANCE_DETAILS = "finance_details";
 	
+	public static String FUNCTIONALITY_HR = "hr_func";
+	
+	public static String FUNCTIONALITY_FIN = "fin_func";
+	
+	public static String zeroString = "00000000000";
+	
+	public static String PDF_EXTENSION = ".pdf";
+	
+	public static String ZIP_EXCEPTION = "zipException";
 }

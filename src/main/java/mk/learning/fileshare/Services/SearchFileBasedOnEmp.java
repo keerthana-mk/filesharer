@@ -13,9 +13,11 @@ import java.util.zip.ZipOutputStream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import mk.learning.fileshare.constants.HashmapConstants;
 
 @Component
@@ -40,19 +42,29 @@ public class SearchFileBasedOnEmp {
 	@Value("${downloadBaseDir}")
 	String downloadBaseDir;
 
-	@Value("${pathDelimiter}")
-	String pathDelimiter;
+	//@Value("${pathDelimiter}")
+	//String pathDelimiter;
 
 	@Value("${hrDir:HR}")
 	String hrDir;
 
 	@Value("${finDir:FINANCE}")
 	String finDir;
+	
+	@Value("${tempDir:temp}")
+	String tempDir;
+	
+	String pathDelimiter=File.separator;
+	
+	@Autowired
+	FileServices delTempFile;
 
 	// we need a function that will return a list of paths to files related to given
 	// employee and functionality
 	public ArrayList<String> getFilePaths4Employee(String empCode, String functionality) {
 		String baseDir;
+		
+		
 		if (functionality.equalsIgnoreCase(HashmapConstants.FUNCTIONALITY_HR))
 			baseDir = downloadBaseDir + pathDelimiter + hrDir;
 		else if (functionality.equalsIgnoreCase(HashmapConstants.FUNCTIONALITY_FIN))
@@ -92,6 +104,7 @@ public class SearchFileBasedOnEmp {
 					+ HashmapConstants.PDF_EXTENSION;
 			logger.info("paddedEmpCodeWithExt = {}", paddedEmpCodeWithExt);
 			logger.info("in else -- {}", baseDirFile.getName());
+		    logger.info("Path Delimiter={}",pathDelimiter);
 			if (baseDirFile.getName().contains(paddedEmpCodeWithExt)) {
 				logger.info("adding File {} to list", baseDirFile.getAbsolutePath());
 				result.add(baseDirFile.getAbsolutePath());
@@ -100,39 +113,43 @@ public class SearchFileBasedOnEmp {
 	}
 
 	// we need a function, which will form a zip of all the files
-	public String zipFiles(ArrayList<String> filePaths) {
-		try {
-			String tempZipFilename = new Date().toString() + ".zip";
+	public String zipFiles(ArrayList<String> filePaths) throws IOException {
+			//cleanTempFiles
+		 delTempFile.cleanTempFiles(tempDir);
+			String tempZipFilename = tempDir + "\\" + new Date().getTime()+ ".zip";	
+			logger.info("tempZipFilename={}",tempZipFilename);	
 			File tempZipFile = new File(tempZipFilename);
 			if (tempZipFile.exists() == false)
 				tempZipFile.createNewFile();
 			ZipOutputStream zipOpStream = new ZipOutputStream(new FileOutputStream(tempZipFile));
 			for (String curFile : filePaths) {
-				String[] curFileSplitNames = curFile.split(pathDelimiter);
+				String[] curFileSplitNames = curFile.split("\\\\");
+				logger.info("curFile={}",curFile);
 				String zipEntryName = "";
 				int index = 0;
 				for (int i = 0; i < curFileSplitNames.length; i++) {
 					if (curFileSplitNames[i].equalsIgnoreCase("downloads"))
 						index = i;
 				}
-				for (int i = index + 1; i < curFileSplitNames.length; i++)
-					zipEntryName = zipEntryName + pathDelimiter + curFileSplitNames[i];
+				for (int i = index + 1; i < curFileSplitNames.length; i++) {
+					zipEntryName = zipEntryName + "\\" + curFileSplitNames[i];
+				}
 				if (zipEntryName.equalsIgnoreCase(""))
 					zipEntryName = curFile;
+				else
+					zipEntryName = zipEntryName.substring(1);
 				logger.info("current zip entry = {}", zipEntryName);
+				logger.info("CurFile = {}",curFile);
 				ZipEntry ze = new ZipEntry(zipEntryName);
+			
 				byte[] fileBytes = Files.readAllBytes(Paths.get(curFile));
 				zipOpStream.putNextEntry(ze);
-				zipOpStream.write(fileBytes);
+				zipOpStream.write(fileBytes,0,fileBytes.length);
+				zipOpStream.flush();
 				zipOpStream.closeEntry();
+				
 			}
-			zipOpStream.flush();
 			zipOpStream.close();
 			return tempZipFilename;
-		}catch(FileNotFoundException e) {
-			return "filenotfound";
-		}catch (IOException e) {
-			return HashmapConstants.ZIP_EXCEPTION;
-		}
 	}
 }

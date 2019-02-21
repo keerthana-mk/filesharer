@@ -1,5 +1,7 @@
 package mk.learning.fileshare.controllers;
 
+import java.io.File;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +21,8 @@ public class AdminController {
 	@Value("${uploadBaseDir}")
 	String uploadBaseDir;
 
-	@Value("${pathDelimiter}")
-	String pathDelimiter;
+	/*@Value("${pathDelimiter}")
+	String pathDelimiter;*/
 
 	@Autowired
 	ReadExcel excelRead;
@@ -29,7 +31,7 @@ public class AdminController {
 	FileServices fileService;
 
 	private final Logger logger = LoggerFactory.getLogger(AdminController.class);
-	
+	String pathDelimiter=File.separator;
 	
 
 	@RequestMapping(value = "/uploadFile", method = RequestMethod.GET)

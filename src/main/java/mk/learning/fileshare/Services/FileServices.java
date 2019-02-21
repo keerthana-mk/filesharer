@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -43,5 +45,25 @@ public class FileServices {
 			logger.error(e.getMessage(), e);
 			return false;
 		}
+	}
+	
+	public void cleanTempFiles(String baseDirPath) {
+		File file = new File(baseDirPath);
+		long thresholdTime = new Date().getTime() - 2*60*1000;
+		for(File Dfile:file.listFiles()) {
+			//iterare over file.listFiles())
+			long lm = Dfile.lastModified();
+			if(lm < thresholdTime )
+				deleteFile(Dfile.getAbsolutePath());
+		}
+		
+	}	
+	public void deleteFile(String filePath) {
+		//create a file object using the filePath
+		File file=new File(filePath);
+		if(file.exists())
+			file.delete();
+		//check if file exists
+		//if exists then use file function to delete
 	}
 }

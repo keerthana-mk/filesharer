@@ -45,6 +45,7 @@ public class AdminController {
 		logger.info("saving file at {}",targetPath);
 		if (fileService.saveMultipartFile(inputFile, targetPath)) {
 			logger.info("fileSavedSuccesfully");
+			logger.info("Input String={}{}{}",uploadBaseDir,pathDelimiter,inputFile.getOriginalFilename());
 			if (excelRead.setMapData(uploadBaseDir + pathDelimiter + inputFile.getOriginalFilename()))
 				return "redirect:uploadFile?upload=success";
 			else

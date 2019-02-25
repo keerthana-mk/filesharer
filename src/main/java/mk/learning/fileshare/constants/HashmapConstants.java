@@ -20,4 +20,6 @@ public class HashmapConstants {
 	public static String PDF_EXTENSION = ".pdf";
 	
 	public static String ZIP_EXCEPTION = "zipException";
+	
+	public static String HR_SUBFUNCTIONALITY_REVISION = "revision";
 }

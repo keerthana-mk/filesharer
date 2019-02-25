@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -24,6 +25,7 @@ public class ReadExcel {
 	public boolean setMapData(String Filename) {
 	
 		String path = Filename;// "E:\testshare.xlsx";
+		logger.info("Path={}",path);
 		try {
 			FileInputStream inputStream = new FileInputStream(path);
 			Workbook workbook = new XSSFWorkbook(inputStream);
@@ -32,6 +34,7 @@ public class ReadExcel {
 			if (HashmapConstants.mapOfMaps == null)
 				HashmapConstants.mapOfMaps = new HashMap<String, Map<String, String>>();
 			Map<String, String> MapData = new HashMap<String, String>();
+			DataFormatter formatter=new DataFormatter();
 			for (int i = 0; i <= LastRow; i++) {
 				Row row = sheet.getRow(i);
 				// Add key cell
@@ -39,8 +42,10 @@ public class ReadExcel {
 				// Add value cell
 				Cell valueCell = row.getCell(1);
 				// Store data of value and key cell in string
-				String key = Double.toString(keyCell.getNumericCellValue());
-				String value = Double.toString(valueCell.getNumericCellValue());
+				//String key = keyCell.getStringCellValue();
+				String key=formatter.formatCellValue(keyCell);
+				//String value =valueCell.getStringCellValue();
+				String value=formatter.formatCellValue(valueCell);
 				// Putting key, value to MapData
 				MapData.put(key, value);
 				// Putting data to ExcelMapData

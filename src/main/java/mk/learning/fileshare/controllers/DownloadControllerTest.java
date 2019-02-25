@@ -38,7 +38,9 @@ public class DownloadControllerTest {
 			//ArrayList<String> empCodeList = new ArrayList<String>();
 			//empCodeList.add(empCode);
 			//ArrayList<String> filePaths = service.getFilePaths4Employee(empCodeList, HashmapConstants.FUNCTIONALITY_HR);
-			ArrayList<String> filePaths = service.getFilePaths4Employee(empCode, HashmapConstants.FUNCTIONALITY_HR);
+			ArrayList<String> empCodeList = new ArrayList<String>();
+			empCodeList.add(empCode);
+			ArrayList<String> filePaths = service.getFilePaths4Employee(empCodeList, HashmapConstants.FUNCTIONALITY_HR);
 			// logger.info("Filepaths= {}",filePaths);
 			for (int i = 0; i < filePaths.size(); i++)
 				System.out.println(filePaths.get(i));

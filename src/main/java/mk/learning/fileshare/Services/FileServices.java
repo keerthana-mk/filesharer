@@ -19,6 +19,8 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,6 +29,9 @@ import mk.learning.fileshare.constants.HashmapConstants;
 @Component
 public class FileServices {
 
+	@Autowired
+	JdbcTemplate jdbcTemplate;
+	
 	private final Logger logger = LoggerFactory.getLogger(FileServices.class);
 
 	public boolean setMapData(String Filename) {

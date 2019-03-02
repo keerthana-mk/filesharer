@@ -5,6 +5,7 @@ body {
 .bg {
 	background-image: url("wel_bg.jpg");
 	background-size: cover;
+	height: 100%; 
 	background-color: transparent;
 }
 
@@ -83,10 +84,8 @@ i {
 	color: #000;
 }
 
-@media screen and (max-width: 1000px) {
-	background-image: url ("wel_bg.jpg ");
-	background-size: cover ;
-		.link-lable {
+@media screen and (max-width: 1000px ) {
+	.link-lable {
 		display: none;
 	}
 }

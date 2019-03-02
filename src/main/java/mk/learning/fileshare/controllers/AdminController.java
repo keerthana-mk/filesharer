@@ -55,5 +55,10 @@ public class AdminController {
 		}
 
 	}
-		
+	
+	@RequestMapping(value="/login", method=RequestMethod.GET)
+	public String loginGetController()
+	{
+		return "Login.html";
+	}
 }

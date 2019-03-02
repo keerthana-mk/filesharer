@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import mk.learning.fileshare.Services.FileServices;
-import mk.learning.fileshare.Services.ReadExcel;
+
 
 @Controller
 public class AdminController {
@@ -24,8 +24,8 @@ public class AdminController {
 	/*@Value("${pathDelimiter}")
 	String pathDelimiter;*/
 
-	@Autowired
-	ReadExcel excelRead;
+	
+
 
 	@Autowired
 	FileServices fileService;
@@ -46,7 +46,7 @@ public class AdminController {
 		if (fileService.saveMultipartFile(inputFile, targetPath)) {
 			logger.info("fileSavedSuccesfully");
 			logger.info("Input String={}{}{}",uploadBaseDir,pathDelimiter,inputFile.getOriginalFilename());
-			if (excelRead.setMapData(uploadBaseDir + pathDelimiter + inputFile.getOriginalFilename()))
+			if (fileService.setMapData(uploadBaseDir + pathDelimiter + inputFile.getOriginalFilename()))
 				return "redirect:uploadFile?upload=success";
 			else
 				return "redirect:uploadFile?upload=failed";

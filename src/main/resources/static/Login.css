@@ -9,28 +9,29 @@ body, html {
 }
 #login-box {
 	position: absolute;
-	top: 0px;
+	top: 150px;
 	left: 50%;
 	transform: translateX(-50%);
 	width: 350px;
 	margin: 0 auto;
 	border: 1px solid black;
-	background: rgba(48, 46, 45, 1);
-	min-height: 250px;
+background: rgba(48, 46, 45, 1);
+	min-height: 300px;
 	padding: 20px;
 	z-index: 9999;
 }
 #login-box .logo .logo-caption {
-	font-family: 'Poiret One', cursive;
+	font-family: 'Helvetica';
 	color: white;
 	text-align: center;
-	margin-bottom: 0px;
+	
+	margin-bottom: 20px;
 }
 #login-box .logo .tweak {
 	color: #ff5252;
 }
 #login-box .controls {
-	padding-top: 30px;
+	padding-top: 3px;
 }
 #login-box .controls input {
 	border-radius: 0px;

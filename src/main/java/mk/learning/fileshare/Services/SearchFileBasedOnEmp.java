@@ -25,21 +25,6 @@ import mk.learning.fileshare.constants.HashmapConstants;
 public class SearchFileBasedOnEmp {
 	private final Logger logger = LoggerFactory.getLogger(SearchFileBasedOnEmp.class);
 
-	/*
-	 * public File searchPath(File file, String search) { // file=new File("E:\\");
-	 * // search="1626285.pdf"; if (file.isDirectory()) { File[] files =
-	 * file.listFiles(); String[] filePath = new String[10000]; for (File f : files)
-	 * { File found = searchPath(f, search); if (found != null) {
-	 * filePath[0]=file.getAbsolutePath(); return found; } }
-	 * 
-	 * } else { if(file.getName().equals(search)) { logger.info("else part"); return
-	 * file; }
-	 * 
-	 * } return null;
-	 * 
-	 * }
-	 */
-
 	@Value("${downloadBaseDir}")
 	String downloadBaseDir;
 
@@ -76,16 +61,48 @@ public class SearchFileBasedOnEmp {
 		logger.info("Emp_list for HR = {}", EmpListForHR);
 		return EmpListForHR;
 	}
-	
+
 	// we need a function that will return a list of paths to files related to given
 	// employee and functionality
 	// this function needs to be modified to take list of employee codes
 	public ArrayList<String> getFilePaths4Employee(ArrayList<String> empCode, String functionality) {
 		String baseDir;
 
-		if (functionality.equalsIgnoreCase(HashmapConstants.FUNCTIONALITY_HR))
+		if (functionality.equalsIgnoreCase(HashmapConstants.FUNCTIONALITY_HR)) {
+			// check what is the subfunctionality
 			baseDir = downloadBaseDir + pathDelimiter + hrDir;
-		else if (functionality.equalsIgnoreCase(HashmapConstants.FUNCTIONALITY_FIN))
+		} else if (functionality.equalsIgnoreCase(HashmapConstants.FUNCTIONALITY_FIN))
+			baseDir = downloadBaseDir + pathDelimiter + finDir;
+		else
+			return null;
+
+		logger.info("baseDir = {}", baseDir);
+
+		File baseDirFile = new File(baseDir);
+		if (!baseDirFile.isDirectory()) {
+			logger.info("baseDir is not a directory");
+			return null;
+		} else {
+			logger.info("baseDir is a directory, traversing");
+			return findAllEmployees(baseDirFile, empCode);
+		}
+	}
+
+	public ArrayList<String> getFilePaths4Employee(ArrayList<String> empCode, String functionality, String subFunc) {
+		String baseDir;
+
+		if (functionality.equalsIgnoreCase(HashmapConstants.FUNCTIONALITY_HR)) {
+			// check what is the subfunctionality
+
+			if (subFunc.equalsIgnoreCase(HashmapConstants.HR_SUBFUNCTIONALITY_REVISION))
+				baseDir = downloadBaseDir + pathDelimiter + hrDir + HashmapConstants.HR_SUBFUNCTIONALITY_REVISION;
+			else if (subFunc.equalsIgnoreCase(HashmapConstants.HR_SUBFUNCTIONALITY_PLP))
+				baseDir = downloadBaseDir + pathDelimiter + hrDir + HashmapConstants.HR_SUBFUNCTIONALITY_PLP;
+			else if (subFunc.equalsIgnoreCase(HashmapConstants.HR_SUBFUNCTIONALITY_CORRECTION))
+				baseDir = downloadBaseDir + pathDelimiter + hrDir + HashmapConstants.HR_SUBFUNCTIONALITY_CORRECTION;
+			else
+				baseDir = downloadBaseDir + pathDelimiter + hrDir;
+		} else if (functionality.equalsIgnoreCase(HashmapConstants.FUNCTIONALITY_FIN))
 			baseDir = downloadBaseDir + pathDelimiter + finDir;
 		else
 			return null;

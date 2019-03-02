@@ -22,4 +22,8 @@ public class HashmapConstants {
 	public static String ZIP_EXCEPTION = "zipException";
 	
 	public static String HR_SUBFUNCTIONALITY_REVISION = "revision";
+	
+	public static String HR_SUBFUNCTIONALITY_PLP = "plp";
+	
+	public static String HR_SUBFUNCTIONALITY_CORRECTION = "correction";
 }

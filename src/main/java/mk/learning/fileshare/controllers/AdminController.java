@@ -44,7 +44,7 @@ public class AdminController {
 	public String uploadGetController() {
 		if(getCurrentLoggedInUser().equalsIgnoreCase("admin") == false)
 			return "HTML/notAuthorizedError.html";
-		return "HTML/upload.html";
+		return "HTML/upload2.html";
 	}
 
 	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)

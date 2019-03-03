@@ -11,9 +11,9 @@ public class HashmapConstants {
 	
 	public static String FINANCE_DETAILS = "finance_details";
 	
-	public static String FUNCTIONALITY_HR = "hr_func";
+	public static String FUNCTIONALITY_HR = "hr";
 	
-	public static String FUNCTIONALITY_FIN = "fin_func";
+	public static String FUNCTIONALITY_FIN = "fin";
 	
 	public static String zeroString = "00000000000";
 	
@@ -26,4 +26,6 @@ public class HashmapConstants {
 	public static String HR_SUBFUNCTIONALITY_PLP = "plp";
 	
 	public static String HR_SUBFUNCTIONALITY_CORRECTION = "correction";
+	
+	public static String HR_SUBFUNCTIONALITY_PROMOTION = "promotion";
 }

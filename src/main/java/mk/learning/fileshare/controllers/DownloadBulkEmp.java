@@ -14,6 +14,8 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -46,9 +48,19 @@ public class DownloadBulkEmp {
 	@RequestMapping(value = "downloadBulk/{functionality}", method = RequestMethod.GET)
 	public ResponseEntity<Resource> Download(HttpServletResponse response, @PathVariable String functionality) throws IOException {
 		ArrayList<String> filePaths= new ArrayList<>(); //filepaths is list of all files for a given HR
+		boolean a=functionality.equalsIgnoreCase(HashmapConstants.FUNCTIONALITY_HR);
+		System.out.println("a="+a);
 		if (functionality.equalsIgnoreCase(HashmapConstants.FUNCTIONALITY_HR)) {
 		ArrayList<String> empCodeList = new ArrayList<String>();
-			empCodeList = service.FindAllEmpForHR("1234"); //should be returned by a function. logic (1)
+		 Object Principle=SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		 String loggedInUsername;
+		 if(Principle instanceof UserDetails)
+			 loggedInUsername=((UserDetails)Principle).getUsername();
+		 else
+			 loggedInUsername=Principle.toString();
+		 System.out.println("logged in username="+loggedInUsername);
+		 
+			empCodeList = service.FindAllEmpForHR(loggedInUsername); //should be returned by a function. logic (1)
 			
 			//logic(2) service.getFilePaths4Employee(empCodeList,HashmapConstants.FUNCTIONALITY_HR)
 			filePaths = service.getFilePaths4Employee(empCodeList, HashmapConstants.FUNCTIONALITY_HR);
@@ -62,6 +74,55 @@ public class DownloadBulkEmp {
 			logger.info("Download Bulk :downloadZipFileName={}",downloadZipFileName);
 
 			if (downloadZipFileName.equalsIgnoreCase(HashmapConstants.ZIP_EXCEPTION))
+				return ResponseEntity.noContent().build();
+
+			InputStreamResource ipStreamResource = new InputStreamResource(
+					new FileInputStream(new File(downloadZipFileName)));
+			/*
+			 * return ResponseEntity .ok()
+			 * .contentType(MediaType.parseMediaType("application/octet-stream"))
+			 * .body(ipStreamResource) ;
+			 */
+			return ResponseEntity.ok().contentType(MediaType.parseMediaType("application/octet-stream"))
+					.header("Content-Disposition", "attachment;filename= Keerthana.zip")
+					.body(ipStreamResource)
+					;
+
+		} else {
+			logger.info("In Else part of DownloadController");
+			return null;
+		}
+	}
+
+	@RequestMapping(value = "downloadBulk/{functionality}/{subfunc}", method = RequestMethod.GET)
+	public ResponseEntity<Resource> Download(HttpServletResponse response, @PathVariable String functionality,@PathVariable String subfunc) throws IOException {
+		ArrayList<String> filePaths= new ArrayList<>(); //filepaths is list of all files for a given HR
+		boolean a=functionality.equalsIgnoreCase(HashmapConstants.FUNCTIONALITY_HR);
+		System.out.println("a="+a);
+		if (functionality.equalsIgnoreCase(HashmapConstants.FUNCTIONALITY_HR)) {
+		ArrayList<String> empCodeList = new ArrayList<String>();
+		 Object Principle=SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		 String loggedInUsername;
+		 if(Principle instanceof UserDetails)
+			 loggedInUsername=((UserDetails)Principle).getUsername();
+		 else
+			 loggedInUsername=Principle.toString();
+		 System.out.println("logged in username="+loggedInUsername);
+		 
+			empCodeList = service.FindAllEmpForHR(loggedInUsername); //should be returned by a function. logic (1)
+			
+			//logic(2) service.getFilePaths4Employee(empCodeList,HashmapConstants.FUNCTIONALITY_HR)
+			filePaths = service.getFilePaths4Employee(empCodeList, HashmapConstants.FUNCTIONALITY_HR,subfunc);
+			logger.info("Filepaths= {}",filePaths);
+			
+			if (filePaths.size() == 0)
+				return ResponseEntity.noContent().build();
+
+			System.out.println(filePaths.size());
+			String downloadZipFileName = service.zipFiles(filePaths); //logic(3)
+			logger.info("Download Bulk :downloadZipFileName={}",downloadZipFileName);
+
+			if (downloadZipFileName.equalsIgnoreCase(HashmapConstants.ZIP_EXCEPTION)) 
 				return ResponseEntity.noContent().build();
 
 			InputStreamResource ipStreamResource = new InputStreamResource(

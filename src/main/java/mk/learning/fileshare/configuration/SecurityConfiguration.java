@@ -22,10 +22,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		try {
 			http.csrf().disable();
 			http.authorizeRequests()
-			.antMatchers("/bootstrap/**","/Login.css","/Login.js","/logo.jpg").permitAll()
+			//.antMatchers("/bootstrap/**","/Login.css","/Login.js","/logo.jpg").permitAll()
+			.antMatchers("/bootstrap/**","/HTML/*","/Images/**").permitAll()
 			.anyRequest().authenticated()
 			.and()
-			.formLogin().loginPage("/login").failureUrl("/login?failed").permitAll();
+			.formLogin().loginPage("/login")
+			.failureUrl("/login?failed").permitAll()
+			.defaultSuccessUrl("/welcome",false);
 			
 			http.authenticationProvider(authService);
 		} catch (Exception e) {

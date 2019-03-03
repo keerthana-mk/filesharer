@@ -1,5 +1,6 @@
 package mk.learning.fileshare.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +36,7 @@ public class DebugController {
 	@GetMapping(value="/dbGet")
 	public String getDbDetails() {
 		List<Map<String,Object>> result = jdbcTemplate.queryForList("select * from FileSharer_UserId");
-		return result.get(0).get("Username").toString();
+			return (result.get(0).get("Username").toString()+" "+result.get(0).get("password").toString());
 		
 	}
 	

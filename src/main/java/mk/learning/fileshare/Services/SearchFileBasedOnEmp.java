@@ -1,7 +1,6 @@
 package mk.learning.fileshare.Services;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import mk.learning.fileshare.constants.HashmapConstants;
 
 @Component
@@ -95,11 +93,17 @@ public class SearchFileBasedOnEmp {
 			// check what is the subfunctionality
 
 			if (subFunc.equalsIgnoreCase(HashmapConstants.HR_SUBFUNCTIONALITY_REVISION))
-				baseDir = downloadBaseDir + pathDelimiter + hrDir + HashmapConstants.HR_SUBFUNCTIONALITY_REVISION;
+				baseDir = downloadBaseDir + pathDelimiter + hrDir + pathDelimiter
+						+ HashmapConstants.HR_SUBFUNCTIONALITY_REVISION;
 			else if (subFunc.equalsIgnoreCase(HashmapConstants.HR_SUBFUNCTIONALITY_PLP))
-				baseDir = downloadBaseDir + pathDelimiter + hrDir + HashmapConstants.HR_SUBFUNCTIONALITY_PLP;
+				baseDir = downloadBaseDir + pathDelimiter + hrDir + pathDelimiter
+						+ HashmapConstants.HR_SUBFUNCTIONALITY_PLP;
 			else if (subFunc.equalsIgnoreCase(HashmapConstants.HR_SUBFUNCTIONALITY_CORRECTION))
-				baseDir = downloadBaseDir + pathDelimiter + hrDir + HashmapConstants.HR_SUBFUNCTIONALITY_CORRECTION;
+				baseDir = downloadBaseDir + pathDelimiter + hrDir + pathDelimiter
+						+ HashmapConstants.HR_SUBFUNCTIONALITY_CORRECTION;
+			else if (subFunc.equalsIgnoreCase(HashmapConstants.HR_SUBFUNCTIONALITY_PROMOTION))
+				baseDir = downloadBaseDir + pathDelimiter + hrDir + pathDelimiter
+						+ HashmapConstants.HR_SUBFUNCTIONALITY_PROMOTION;
 			else
 				baseDir = downloadBaseDir + pathDelimiter + hrDir;
 		} else if (functionality.equalsIgnoreCase(HashmapConstants.FUNCTIONALITY_FIN))

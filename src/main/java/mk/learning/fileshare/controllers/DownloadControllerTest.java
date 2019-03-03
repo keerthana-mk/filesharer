@@ -31,13 +31,16 @@ public class DownloadControllerTest {
 	SearchFileBasedOnEmp service;
 	
 	
+	
+	
 	@RequestMapping(value = "download/{functionality}/{empCode}", method = RequestMethod.GET)
 	public ResponseEntity<Resource> Download(HttpServletResponse response, @PathVariable String functionality,
 			@PathVariable String empCode) throws IOException {
 		if (functionality.equalsIgnoreCase("hr")) {
-			//ArrayList<String> empCodeList = new ArrayList<String>();
-			//empCodeList.add(empCode);
-			//ArrayList<String> filePaths = service.getFilePaths4Employee(empCodeList, HashmapConstants.FUNCTIONALITY_HR);
+			// ArrayList<String> empCodeList = new ArrayList<String>();
+			// empCodeList.add(empCode);
+			// ArrayList<String> filePaths = service.getFilePaths4Employee(empCodeList,
+			// HashmapConstants.FUNCTIONALITY_HR);
 			ArrayList<String> empCodeList = new ArrayList<String>();
 			empCodeList.add(empCode);
 			ArrayList<String> filePaths = service.getFilePaths4Employee(empCodeList, HashmapConstants.FUNCTIONALITY_HR);
@@ -62,15 +65,14 @@ public class DownloadControllerTest {
 			 * .body(ipStreamResource) ;
 			 */
 			return ResponseEntity.ok().contentType(MediaType.parseMediaType("application/octet-stream"))
-					.header("Content-Disposition", "attachment;filename= Keerthana.zip")
-					.body(ipStreamResource)
-					;
+					.header("Content-Disposition", "attachment;filename= Keerthana.zip").body(ipStreamResource);
 
 		} else {
 			logger.info("In Else part of DownloadController");
 			return null;
 		}
 	}
+
 }
 
 /*

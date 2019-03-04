@@ -1,4 +1,4 @@
-#Advantages of FileSharer application
+# Advantages of FileSharer application
 
 * __Complete automation of File sharing process:__
      * HRs can now access and download files of related employees using web interface
@@ -22,7 +22,7 @@
 * __The implementation is fairly generic and hence easy to on-board new functionalities.__
       * In future, if we have to on-board sharing of files for Finance department then it would require very minimal change to the existing code 
 
-#Future Plans
+# Future Plans
 
 * There is plans to empower the admin user to view and modify metadata of the application.
 * A self on-boarding portal for managing users - A web interface through which admin can add or remove users.

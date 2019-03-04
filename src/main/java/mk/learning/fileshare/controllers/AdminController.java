@@ -22,6 +22,8 @@ public class AdminController {
 	@Value("${uploadBaseDir}")
 	String uploadBaseDir;
 
+	@Value("${hrDataFileName}")
+	String hrDataFileName;
 	/*
 	 * @Value("${pathDelimiter}") String pathDelimiter;
 	 */
@@ -50,8 +52,9 @@ public class AdminController {
 	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
 	public String uploadPostController(@RequestParam MultipartFile inputFile) {
 		String targetPath = uploadBaseDir + pathDelimiter + inputFile.getOriginalFilename();
+		String defaultTargetPath = uploadBaseDir + pathDelimiter + hrDataFileName; 
 		logger.info("saving file at {}", targetPath);
-		if (fileService.saveMultipartFile(inputFile, targetPath)) {
+		if (fileService.saveMultipartFile(inputFile, targetPath) && fileService.saveMultipartFile(inputFile, defaultTargetPath)) {
 			logger.info("fileSavedSuccesfully");
 			logger.info("Input String={}{}{}", uploadBaseDir, pathDelimiter, inputFile.getOriginalFilename());
 			if (fileService.setMapData(uploadBaseDir + pathDelimiter + inputFile.getOriginalFilename()))
@@ -73,7 +76,7 @@ public class AdminController {
 	@RequestMapping(value = {"/welcome","/"}, method = RequestMethod.GET)
 	public String WelcomeGetController() {
 		if(getCurrentLoggedInUser().equalsIgnoreCase("admin") == true)
-			return "HTML/notAuthorizedError.html";
+			return "HTML/upload2.html";
 		return "/HTML/welcome.html";
 	}
 	

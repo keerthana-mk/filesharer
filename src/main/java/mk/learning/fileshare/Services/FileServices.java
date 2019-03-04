@@ -7,11 +7,11 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+
+import javax.annotation.PostConstruct;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
@@ -19,25 +19,46 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.tomcat.util.http.fileupload.UploadContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import mk.learning.fileshare.constants.HashmapConstants;
-import mk.learning.fileshare.constants.Queries;
 
 @Component
 public class FileServices {
+
+	@Value("${hrDataFileName}")
+	String hrDataFileName;
+	
+	@Value("${uploadBaseDir}")
+	String uploadBaseDir;
+	
+	String pathDelimiter = File.separator;
 
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 	
 	private final Logger logger = LoggerFactory.getLogger(FileServices.class);
-
+	
+	@PostConstruct
+	public void initMapData() {
+		String hrDataFilePath = uploadBaseDir + pathDelimiter + hrDataFileName;
+		File hrDataFile = new File(hrDataFilePath);
+		if(hrDataFile.exists()) {
+			logger.info("initializing HR Map data with file {}",hrDataFilePath);
+			setMapData(hrDataFilePath);
+		}
+		else {
+			logger.warn("unable to initialize HR Map data as file {} not found",hrDataFilePath);
+		}
+	}
+	
 	public boolean setMapData(String Filename) {
 
 		String path = Filename;// "E:\testshare.xlsx";

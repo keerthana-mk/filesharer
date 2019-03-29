@@ -1,11 +1,15 @@
 package mk.learning.fileshare.controllers;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,4 +44,18 @@ public class DebugController {
 		
 	}
 	
+	/*@GetMapping(value="/encrypt")
+	public String EncryptMD5(String password) throws Exception
+	{
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getCredentials();
+		if(principal instanceof UserDetails)
+	password = ((UserDetails) principal).getPassword();
+else
+	password= principal.toString();	
+	        MessageDigest m=MessageDigest.getInstance("MD5");
+	        m.update(password.getBytes(),0,password.length());
+	        System.out.println("MD5: "+new BigInteger(1,m.digest()).toString(16));
+			return new BigInteger(1,m.digest()).toString(16) ;
+			
+	}*/
 }

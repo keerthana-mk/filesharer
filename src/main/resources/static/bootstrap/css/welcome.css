@@ -60,9 +60,10 @@ body {
 }
 
 .custom-tab>li>a:link {
-	border-top: 5px solid #00bfff;
-	border-right: 5px solid #00bfff;
-	border-left: 5px solid #00bfff;
+	border-top: 2px solid #00bfff;
+	border-right: 2px solid #00bfff;
+	border-left: 2px solid #00bfff;
+	border-bottom:2px solid #00bfff;
 	box-shadow: #ffffff;
 }
 
@@ -91,4 +92,13 @@ i {
 	.link-lable {
 		display: none;
 	}
+}
+    .loader {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url('/Images/Help.gif') 50% 50% no-repeat rgb(249,249,249);
 }

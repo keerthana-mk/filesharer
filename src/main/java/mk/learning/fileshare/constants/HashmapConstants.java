@@ -28,4 +28,8 @@ public class HashmapConstants {
 	public static String HR_SUBFUNCTIONALITY_CORRECTION = "correction";
 	
 	public static String HR_SUBFUNCTIONALITY_PROMOTION = "promotion";
+	
+	public static Integer NEW_USER_FLAG = -1;
+	
+	public static Integer EXISTING_USER_FLAG = 0;
 }

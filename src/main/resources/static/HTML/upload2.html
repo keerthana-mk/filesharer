@@ -40,13 +40,32 @@
 			}			
 		}
 		
+		 function DisplayMessage(myvar){
+			  var urls = myvar;
+			  var myurls = urls.split("?id=");
+			  var mylasturls = myurls[1];
+			  var mynexturls = mylasturls.split("&");
+			  var url = mynexturls[0];
+			  alert(url);
+			}
+		
   </script>
+  <script src="/bootstrap/js/popupMessage.js"> </script>
 </head>
-<body>
+<body onload="sendAlerts('upload','Upload file status :')">
 <div class="jumbotron"> 
 <h1 align="center">File Sharer</h1>
 </div>
-<h2>Welcome Admin</h2><p align="right"><button class="btn btn-success btn-lg" style="margin-right: 100px"><a href="/login" id="logout">Logout</a></button></p>
+<div>
+</div>
+<!-- <h2>Welcome Admin</h2> -->
+	<p align="left">
+	<button class="btn btn-warning btn-lg" style="margin-right: 900px; margin-left: 100px" hspace=10000><a href="/register" id="reg">Create User</a></button>
+	 <button class="btn btn-dark btn-lg" style="margin-left: 100px"><a href="/login" id="logout">Logout</a></button> 
+	</p>
+
+
+
 <hr>
 
 	<div class="container well">
@@ -94,6 +113,9 @@
 			</div>
 
 		</div>
+	</div>
+	<div>
+	
 	</div>
 
 </body>

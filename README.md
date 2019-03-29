@@ -28,4 +28,4 @@
 * A self on-boarding portal for managing users - A web interface through which admin can add or remove users.
 * Integrate the application with cloud based storage such as google drive to completely eliminate the manual intervention from IT team.
  
-Dictionary  
+---after adding create user and reset password option

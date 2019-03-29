@@ -42,6 +42,20 @@ public class SearchFileBasedOnEmp {
 
 	@Autowired
 	FileServices delTempFile;
+	
+	
+	public boolean CheckSingleEmpForHR(String empcode,String hrcode) {
+		ArrayList<String> EmpList= new ArrayList<String>();
+				EmpList=FindAllEmpForHR(hrcode);
+				for (int i=0;i<EmpList.size();i++)
+					if (EmpList.get(i).equalsIgnoreCase((empcode)))
+					{  logger.info("CheckSingleEmpForHR found");
+						return true;
+					}
+logger.info("CheckSingleEmpForHR not found");				
+		return false;
+		
+	}
 
 	public ArrayList<String> FindAllEmpForHR(String hrCode)
 
@@ -50,13 +64,13 @@ public class SearchFileBasedOnEmp {
 		Map<String, String> empHrMap = HashmapConstants.mapOfMaps.get(HashmapConstants.HR_DETAILS);
 		for (String entry : empHrMap.keySet()) {
 			String curHr = empHrMap.get(entry);
-			logger.info("Cur HR: {}", curHr);
+			//logger.info("Cur HR logged in: {}", curHr);
 			if (curHr.equalsIgnoreCase(hrCode)) {
-				logger.info("In IF");
+				//logger.info("In IF");
 				EmpListForHR.add(entry);
 			}
 		}
-		logger.info("Emp_list for HR = {}", EmpListForHR);
+		//logger.info("Emp_list for HR = {}", EmpListForHR);
 		return EmpListForHR;
 	}
 
@@ -78,10 +92,10 @@ public class SearchFileBasedOnEmp {
 
 		File baseDirFile = new File(baseDir);
 		if (!baseDirFile.isDirectory()) {
-			logger.info("baseDir is not a directory");
+			logger.error("baseDir is not a directory");
 			return null;
 		} else {
-			logger.info("baseDir is a directory, traversing");
+			logger.error("baseDir is a directory, traversing");
 			return findAllEmployees(baseDirFile, empCode);
 		}
 	}
@@ -131,11 +145,11 @@ public class SearchFileBasedOnEmp {
 	}
 
 	private void traverse(File baseDirFile, ArrayList<String> result, ArrayList<String> empCodeList) {
-		logger.info("traversing file {}", baseDirFile.getAbsolutePath());
+		//logger.info("traversing file {}", baseDirFile.getAbsolutePath());
 		if (baseDirFile.isDirectory()) {
 			String[] baseDirFileChildren = baseDirFile.list();
 			for (int i = 0; i < baseDirFileChildren.length; i++) {
-				logger.info("calling traverse for {}", baseDirFileChildren[i]);
+				//logger.info("calling traverse for {}", baseDirFileChildren[i]);
 				traverse(new File(baseDirFile.getAbsoluteFile() + pathDelimiter + baseDirFileChildren[i]), result,
 						empCodeList);
 			}
@@ -143,11 +157,11 @@ public class SearchFileBasedOnEmp {
 			for (String empCode : empCodeList) {
 				String paddedEmpCodeWithExt = HashmapConstants.zeroString.substring(0, 8 - empCode.length()) + empCode
 						+ HashmapConstants.PDF_EXTENSION;
-				logger.info("paddedEmpCodeWithExt = {}", paddedEmpCodeWithExt);
-				logger.info("in else -- {}", baseDirFile.getName());
-				logger.info("Path Delimiter={}", pathDelimiter);
+			//	logger.info("paddedEmpCodeWithExt = {}", paddedEmpCodeWithExt);
+			//	logger.info("in else -- {}", baseDirFile.getName());
+				//logger.info("Path Delimiter={}", pathDelimiter);
 				if (baseDirFile.getName().contains(paddedEmpCodeWithExt)) {
-					logger.info("adding File {} to list", baseDirFile.getAbsolutePath());
+				//	logger.info("adding File {} to list", baseDirFile.getAbsolutePath());
 					result.add(baseDirFile.getAbsolutePath());
 				}
 			}
@@ -166,7 +180,7 @@ public class SearchFileBasedOnEmp {
 		ZipOutputStream zipOpStream = new ZipOutputStream(new FileOutputStream(tempZipFile));
 		for (String curFile : filePaths) {
 			String[] curFileSplitNames = curFile.split("\\\\");
-			logger.info("curFile={}", curFile);
+			//logger.info("curFile={}", curFile);
 			String zipEntryName = "";
 			int index = 0;
 			for (int i = 0; i < curFileSplitNames.length; i++) {
@@ -180,8 +194,8 @@ public class SearchFileBasedOnEmp {
 				zipEntryName = curFile;
 			else
 				zipEntryName = zipEntryName.substring(1);
-			logger.info("current zip entry = {}", zipEntryName);
-			logger.info("CurFile = {}", curFile);
+			//logger.info("current zip entry = {}", zipEntryName);
+			//logger.info("CurFile = {}", curFile);
 			ZipEntry ze = new ZipEntry(zipEntryName);
 
 			byte[] fileBytes = Files.readAllBytes(Paths.get(curFile));

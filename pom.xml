@@ -45,6 +45,12 @@
 			<artifactId>bootstrap</artifactId>
 			<version>3.3.6</version>
 		</dependency>
+		
+		<dependency>
+		<groupId>org.oracle</groupId>
+		<artifactId>ojdbc</artifactId>
+		<version>0.0.1</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

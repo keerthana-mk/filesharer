@@ -32,4 +32,5 @@ public class HashmapConstants {
 	public static Integer NEW_USER_FLAG = -1;
 	
 	public static Integer EXISTING_USER_FLAG = 0;
+	
 }

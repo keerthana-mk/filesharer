@@ -155,12 +155,17 @@ logger.info("CheckSingleEmpForHR not found");
 			}
 		} else {
 			for (String empCode : empCodeList) {
-				String paddedEmpCodeWithExt = HashmapConstants.zeroString.substring(0, 8 - empCode.length()) + empCode
-						+ HashmapConstants.PDF_EXTENSION;
-			//	logger.info("paddedEmpCodeWithExt = {}", paddedEmpCodeWithExt);
+				/*String paddedEmpCodeWithExt = HashmapConstants.zeroString.substring(0, 8 - empCode.length()) + empCode
+						+ HashmapConstants.PDF_EXTENSION;*/
+				String paddedEmpCodeWithExt = empCode+ HashmapConstants.PDF_EXTENSION;
+				logger.info("paddedEmpCodeWithExt = {}", paddedEmpCodeWithExt);
 			//	logger.info("in else -- {}", baseDirFile.getName());
 				//logger.info("Path Delimiter={}", pathDelimiter);
-				if (baseDirFile.getName().contains(paddedEmpCodeWithExt)) {
+				//if (baseDirFile.getName().endsWith(paddedEmpCodeWithExt)
+				String curFilename=baseDirFile.getName();
+				String curEmpChecking=curFilename.substring(6, curFilename.length()-4);
+				if(empCode.equalsIgnoreCase(curEmpChecking))
+						{
 				//	logger.info("adding File {} to list", baseDirFile.getAbsolutePath());
 					result.add(baseDirFile.getAbsolutePath());
 				}

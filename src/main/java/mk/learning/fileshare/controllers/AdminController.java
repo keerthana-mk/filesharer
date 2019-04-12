@@ -1,7 +1,6 @@
 package mk.learning.fileshare.controllers;
 
 import java.io.File;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -120,4 +119,21 @@ public class AdminController {
 		}
 	}
 	
+
+	/*@RequestMapping(value = "principalchangepassword" , method = RequestMethod.POST)
+	public @ResponseBody String principalchangepassword(Model uiModel, HttpServletRequest httpServletRequest){
+	    Principal principal = (Principal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	    Principal me = Principal.findPrincipal(principal.getId());
+	   me.setPassword(httpServletRequest.getParameter("password1"));
+	    StandardStringDigester digester = new StandardStringDigester();
+	    digester.setAlgorithm("SHA-256");   // optionally set the algorithm
+	    digester.setStringOutputType("hexadecimal");
+	    digester.setSaltSizeBytes(0);
+	    digester.setIterations(1);
+	    String digest = digester.digest(me.getPassword());
+	    me.setPassword(digest.toLowerCase());
+	    me.merge();
+	    return "Password Updated successfully";
+	}
+	*/
 }

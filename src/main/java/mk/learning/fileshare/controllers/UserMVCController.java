@@ -16,9 +16,9 @@ import mk.learning.fileshare.Services.UserRegistration;
 
 @Controller
 public class UserMVCController {
-	
+
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	
+
 	@Autowired
 	UserRegistration userRegService;
 
@@ -63,6 +63,7 @@ public class UserMVCController {
 	}
 
 	@RequestMapping(value = { "/login" }, method = RequestMethod.GET)
+	
 	public String loginGetController() {
 		return "/HTML/Login.html";
 	}

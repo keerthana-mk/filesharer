@@ -32,6 +32,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 			.failureUrl("/login?login=failed")
 			.permitAll()
 			.defaultSuccessUrl("/welcome",false);
+			
 			http.authenticationProvider(authService);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

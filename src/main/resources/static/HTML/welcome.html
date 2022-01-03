@@ -1,0 +1,201 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+
+<script type="text/javascript">
+	function setHyperLink() {
+		var searchTextBox = document.getElementById("SearchEmp");
+		var searchTextBoxValue = searchTextBox.value;
+		if (searchTextBoxValue == null || searchTextBoxValue == ""
+				|| searchTextBoxValue.length < 2) {
+			document.getElementById("downloadLink").setAttribute("href",
+					"javascript:void(0)");
+			alert("Employee code not proper. it must have atleast 3 characters");
+		} else {
+			var searchTextBox = document.getElementById("SearchEmp");
+			var searchTextBoxValue = searchTextBox.value;
+			var baseUrl = "/download/hr/";
+			//alert("setting href to "+baseUrl+searchTextBoxValue);
+			document.getElementById("downloadLink").setAttribute("href",
+					baseUrl + searchTextBoxValue);
+			//alert("set succesfully");
+		}
+	}
+	$(function() {
+		$('.download').click(function() {
+			ShowDownloadMessage();
+		});
+	})
+
+	function ShowDownloadMessage() {
+		$('#message-text').text('your report is creating, please wait...');
+		$('#message').show();
+		window.addEventListener('focus', HideDownloadMessage, false);
+	}
+
+	function HideDownloadMessage() {
+		window.removeEventListener('focus', HideDownloadMessage, false);
+		$('#message').hide();
+	}
+</script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(window).load(function() {
+    $(".loader").fadeOut("slow");
+})
+</script>
+
+<!-- Latest compiled and minified CSS -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="/bootstrap/css/welcome.css">
+<link rel="stylesheet" href="/bootstrap/css/Login.css">
+
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300|Roboto"
+	rel="stylesheet">
+</head>
+
+
+<body>
+	<h1
+		style="font-family: serif; font-size-adjust: inherit; font-weight: bolder; color: Black;"
+		align="center">
+		File Sharer <a align="right" href="/docs/FileSharerDOC.pdf"
+			download="FileShareDOC.pdf"><img alt="help" src="Images/Help.ico"
+			height="50px" width="50px" align="right" /></a>
+	</h1>
+	<!--  <p align="right"></p> -->
+	<hr>
+	<ul class="nav nav-tabs custom-tab" role="tablist">
+		<li role="presentation" class="active"><a href="#home"
+			aria-controls="home" role="tab" data-toggle="tab"><i
+				class="glyphicon glyphicon-home icon"></i><span class="link-lable">
+					Home</span></a></li>
+		<li role="presentation"><a href="#Revision"
+			aria-controls="Revision" role="tab" data-toggle="tab"><i
+				class="glyphicon glyphicon-menu-down"></i><span class="link-lable">
+					Revision</span></a></li>
+		<li role="presentation"><a href="#Promotion"
+			aria-controls="Promotion" role="tab" data-toggle="tab"><i
+				class="glyphicon glyphicon-menu-down"></i><span class="link-lable">
+					Promotion</span></a></li>
+		<li role="presentation"><a href="#PLP" aria-controls="PLP"
+			role="tab" data-toggle="tab"><i
+				class="glyphicon glyphicon-menu-down"></i><span class="link-lable">PLP</span></a></li>
+		<li ><a href="/logout" class="btn btn-info btn-lg"> <span class="glyphicon glyphicon-log-out">Logout</span></a></li>
+		<!-- <p align ="right"><a align="right" href="/docs/FileSharerDOC.pdf" download="FileShareDOC.pdf">How to Use?</a></p> -->
+		<!-- <p align="right"><a align="right" href="/docs/FileSharerDOC.pdf" download="FileShareDOC.pdf"><img alt="dflt" src="/images/Help.ico" href="/docs/FileSharerDOC.pdf" height="50px" width="50px"/></a></p> -->
+		<!-- 
+    <li role="presentation"><a href="#test5" aria-controls="test5" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-user"></i><span class="link-lable"> Profile</span></a></li> -->
+	</ul>
+	<div class="bg">
+		<br /> <br>
+		<div role="tabpanel" class="tab-pane fade in active" id="home"
+			class="search-box">
+			<div id="search-box">
+				<div class="logo">
+					<div class="controls">
+
+						<label align="center" hspace="50">Enter the empcode</label> <input
+							type="text" name="SearchEmp" id="SearchEmp" placeholder="Empcode"
+							class="form-control" /> <br /> <a target=# id="downloadLink"
+							onclick="setHyperLink();" name="downloadLink" href="/download/hr"
+							class="btn btn-default btn-block btn-custom"> Download </a>
+
+						<!-- <div id="message" style="display: none">
+    <div id="message-screen-mask" class="ui-widget-overlay ui-front"></div>
+    <div id="message-text" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-draggable ui-resizable waitmessage">please wait...</div>
+</div> -->
+
+						<hr>
+
+						<a href="/downloadBulk/hr" target="#"
+							class="btn btn-success btn-block btn-custom"> Download All </a>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div role="tabpanel" class="tab-pane fade" id="Revision">
+			<div id="search-box">
+				<div class="logo">
+					<div class="controls">
+
+						<label align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Download
+							Revision for all emp</label> <br />
+						<hr>
+
+						<!-- <button type="submit" class="btn btn-default btn-block btn-custom" class="loader" onloadstart="loader();"> -->
+
+
+						<a target="#" href="/downloadBulk/hr/revision"
+							class="btn btn-default btn-block btn-custom"> Download All
+							Revision </a>
+
+
+						<hr>
+
+
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div role="tabpanel" class="tab-pane fade" id="Promotion">
+			<div id="search-box">
+				<div class="logo">
+					<div class="controls">
+						<label align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Download
+							Promotion for all emp</label> <br />
+						<hr>
+
+						<a target=# href="/downloadBulk/hr/promotion"
+							class="btn btn-default btn-block btn-custom"> Download All
+							Promotion </a>
+
+						<hr>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div role="tabpanel" class="tab-pane fade" id="PLP">
+			<div id="search-box">
+				<div class="logo">
+					<div class="controls">
+						<label align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Download
+							PLP for all emp</label> <br />
+						<hr>
+						<!-- <button type="button" class="btn btn-default btn-block btn-custom"> -->
+						<a target=# href="/downloadBulk/hr/plp"
+							class="btn btn-default btn-block btn-custom"> Download All
+							PLP </a>
+
+						<hr>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+		<!-- Latest compiled and minified JavaScript -->
+		<script
+			src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script>
+			
+		</script>
+</body>
+</html>

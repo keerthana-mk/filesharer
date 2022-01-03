@@ -1,0 +1,13 @@
+/* String HashLoggedinPassword=authService.EncryptPassword(); 
+		 System.out.println("HashLoggedinPassword="+HashLoggedinPassword);
+		String
+		  HashPasswordFromDB=authService.EncryptPassword(getPasswordFromDB());
+		  System.out.println("HashPasswordFromDB="+HashPasswordFromDB);
+		  if(HashLoggedinPassword.equalsIgnoreCase(HashPasswordFromDB))
+		 */
+		 
+	  
+		String p1=getCurrentLoggedInPassword();
+		String p2=getPasswordFromDB();
+		System.out.println("getCurrentLoggedInPassword="+p1);
+		System.out.println("getPasswordFromDB="+p2);		 

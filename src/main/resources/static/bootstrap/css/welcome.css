@@ -1,0 +1,104 @@
+body {
+	font-family: 'Open Sans', sans-serif;
+}
+
+.bg {
+	background-image: url("/Images/wel_bg.jpg");
+	background-size: cover;
+	height: 79%; 
+	background-color: transparent;
+}
+
+#search-box {
+	position: fixed;
+	top: 200px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 350px;
+	margin: 2 auto;
+	border: 3px solid white;
+	background: white;
+	min-height: 200px;
+	padding: 50px;
+	z-index: 9999;
+	
+}
+
+#search-box .controls {
+	padding: "10px";
+	border-radius: 1px;
+	border-bottom-color: black;
+}
+
+#search-box .controls input {
+	border-radius: 1px;
+	background:#cad2ce;
+	border: 1px;
+	color: black;
+	font-family: sans-serif;
+	border-bottom-color: black;
+}
+
+.hdr {
+	margin-top: 2px;
+	margin-left: 10px;
+	font-style: normal;
+	font-weight: bolder;
+	color: white;
+}
+
+.custom-tab>li>a {
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+}
+
+.custom-tab>li {
+	-webkit-border-radius: 1;
+	-moz-border-radius: 0;
+	background-color: white;
+}
+
+.custom-tab>li>a:link {
+	border-top: 2px solid #00bfff;
+	border-right: 2px solid #00bfff;
+	border-left: 2px solid #00bfff;
+	border-bottom:2px solid #00bfff;
+	box-shadow: #ffffff;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover,
+	.nav-tabs>li.active>a:visited {
+	background-color: white;
+	border-top: 1px #00bfff;
+	border-right: 1px #00bfff;
+	border-left: 1px #00bfff;
+	color: #FFF;
+	
+}
+
+i {
+	color: #000;
+}
+
+.link-lable {
+	text-decoration: none;
+	font-weight: bold;
+	color: #000;
+	
+}
+
+@media screen and (max-width: 1000px ) {
+	.link-lable {
+		display: none;
+	}
+}
+    .loader {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url('/Images/Help.gif') 50% 50% no-repeat rgb(249,249,249);
+}
